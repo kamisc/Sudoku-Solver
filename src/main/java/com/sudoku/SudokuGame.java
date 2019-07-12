@@ -5,6 +5,7 @@ package com.sudoku;
  */
 
 public class SudokuGame {
+
     public static void main(String[] args) {
         boolean gameFinished = false;
 
@@ -12,6 +13,12 @@ public class SudokuGame {
             SudokuGame theGame = new SudokuGame();
             gameFinished = theGame.resolveSudoku();
         }
+
+        SudokuBoard sudokuBoard = new SudokuBoard();
+        System.out.println(sudokuBoard);
+
+        Menu.menu();
+
     }
 
     public boolean resolveSudoku() {
