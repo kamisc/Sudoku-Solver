@@ -9,11 +9,11 @@ import java.util.List;
 
 public class SudokuBoard {
     private List<SudokuRow> board = new ArrayList<>();
-    private final static int MIN_INDEX = 0;
-    private final static int MAX_INDEX = 9;
+    public final static int MIN_INDEX = 1;
+    public final static int MAX_INDEX = 9;
 
     public SudokuBoard() {
-
+        createBoard();
     }
 
     public List<SudokuRow> getBoard() {
@@ -28,15 +28,30 @@ public class SudokuBoard {
         board.add(sudokuRow);
     }
 
+    public List<SudokuRow> createBoard() {
+        for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
+            board.add(new SudokuRow(sudokuElements()));
+        }
+        return board;
+    }
+
+    public List<SudokuElement> sudokuElements() {
+        List<SudokuElement> sudokuElements = new ArrayList<>();
+        for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
+            sudokuElements.add(new SudokuElement(SudokuElement.EMPTY));
+        }
+        return sudokuElements;
+    }
+
     @Override
     public String toString() {
         String displayBoard = "";
-        for(int i = MIN_INDEX; i < MAX_INDEX; i++) {
-            System.out.println("---------------------------------------");
-            for(int j = MIN_INDEX; j < MAX_INDEX; j++) {
-                System.out.print(" | " + SudokuElement.EMPTY); // board.get(i).getElement(j)
+        for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
+            displayBoard += "---------------------------------------" + "\n";
+            for(int j = MIN_INDEX; j <= MAX_INDEX; j++) {
+                displayBoard += " | " + board.get(i-1).getElement(j-1);
             }
-            System.out.print(" |\n");
+            displayBoard += " |\n";
         }
         return displayBoard;
     }

@@ -1,5 +1,6 @@
 package com.sudoku;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,27 +10,26 @@ import java.util.List;
 public class SudokuElement {
     public static int EMPTY = 0;
     private int value;
-    private List<Integer> possibleValues;
+    private List<Integer> possibleValues = new ArrayList<>();
 
-    public SudokuElement(int value, List<Integer> possibleValues) {
+    public SudokuElement(int value) {
         this.value = value;
-        this.possibleValues = possibleValues;
+        this.possibleValues = possibleValues();
     }
 
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public List<Integer> getPossibleValues() {
         return possibleValues;
     }
 
-    public void setPossibleValues(List<Integer> possibleValues) {
-        this.possibleValues = possibleValues;
+    public List<Integer> possibleValues() {
+        for(int i = SudokuBoard.MIN_INDEX; i <= SudokuBoard.MAX_INDEX; i++) {
+            possibleValues.add(i);
+        }
+        return possibleValues;
     }
 
     @Override
