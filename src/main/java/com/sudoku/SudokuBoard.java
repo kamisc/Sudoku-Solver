@@ -35,6 +35,32 @@ public class SudokuBoard {
         return board;
     }
 
+    public void addElementToTheBoard(int col, int row, int value) {
+        board.get(row).addElement(col,value);
+    }
+
+    public boolean isInRow(int row, int value) {
+        int checkRow = board.get(row).getRow().stream()
+                .map(r -> r.getValue())
+                .filter(v -> v.equals(value))
+                .mapToInt(n -> 1)
+                .sum();
+        return checkRow > 0;
+    }
+
+    public boolean isInColumn(int col, int value) {
+        int checkColumn = board.stream()
+                .map(c -> c.getElement(col).getValue())
+                .filter(v -> v.equals(value))
+                .mapToInt(n -> 1)
+                .sum();
+        return checkColumn > 0;
+    }
+
+    public boolean isInBlock(int row, int col, int value) {
+        return true;
+    }
+
     @Override
     public String toString() {
         String displayBoard = "";
@@ -42,7 +68,7 @@ public class SudokuBoard {
         for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
             displayBoard += "  -------------------------------------" + "\n" + i;
             for(int j = MIN_INDEX; j <= MAX_INDEX; j++) {
-                displayBoard += " | " + board.get(i-1)/*.getElement(j-1)*/;
+                displayBoard += " | " + board.get(i-1).getElement(j-1);
             }
             displayBoard += " |\n";
         }

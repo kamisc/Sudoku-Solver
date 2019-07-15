@@ -31,7 +31,7 @@ public class Menu {
                 System.out.println("Set VALUE: ");
                 int value = sc.nextInt();
 
-                sudokuBoard.getRow(row).addElement(col, value);
+                sudokuBoard.addElementToTheBoard(col, row, value);
                 break;
 
             case 2:
