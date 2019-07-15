@@ -42,7 +42,7 @@ public class SudokuBoard {
         for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
             displayBoard += "  -------------------------------------" + "\n" + i;
             for(int j = MIN_INDEX; j <= MAX_INDEX; j++) {
-                displayBoard += " | " + board.get(i-1).getElement(j-1);
+                displayBoard += " | " + board.get(i-1)/*.getElement(j-1)*/;
             }
             displayBoard += " |\n";
         }
