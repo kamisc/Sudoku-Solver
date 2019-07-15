@@ -1,5 +1,6 @@
 package com.sudoku;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,10 +8,12 @@ import java.util.List;
  */
 
 public class SudokuRow {
-    private List<SudokuElement> row;
+    private List<SudokuElement> row = new ArrayList<>();
 
-    public SudokuRow(List<SudokuElement> row) {
-        this.row = row;
+    public SudokuRow() {
+        for(int i = SudokuBoard.MIN_INDEX; i <= SudokuBoard.MAX_INDEX; i++) {
+            row.add(i-1, new SudokuElement(SudokuElement.EMPTY));
+        }
     }
 
     public List<SudokuElement> getRow() {

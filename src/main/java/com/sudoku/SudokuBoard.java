@@ -30,24 +30,17 @@ public class SudokuBoard {
 
     public List<SudokuRow> createBoard() {
         for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
-            board.add(new SudokuRow(sudokuElements()));
+            board.add(new SudokuRow());
         }
         return board;
-    }
-
-    public List<SudokuElement> sudokuElements() {
-        List<SudokuElement> sudokuElements = new ArrayList<>();
-        for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
-            sudokuElements.add(new SudokuElement(SudokuElement.EMPTY));
-        }
-        return sudokuElements;
     }
 
     @Override
     public String toString() {
         String displayBoard = "";
+        System.out.println("    " +  1 + "   " + 2 + "   " + 3 + "   " + 4 + "   " + 5 + "   " + 6 + "   " + 7 + "   " + 8 + "   " + 9);
         for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
-            displayBoard += "---------------------------------------" + "\n";
+            displayBoard += "  -------------------------------------" + "\n" + i;
             for(int j = MIN_INDEX; j <= MAX_INDEX; j++) {
                 displayBoard += " | " + board.get(i-1).getElement(j-1);
             }
