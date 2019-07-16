@@ -41,7 +41,7 @@ public class SudokuBoard {
 
     public boolean isInRow(int row, int value) {
         int checkRow = board.get(row).getRow().stream()
-                .map(r -> r.getValue())
+                .map(SudokuElement::getValue)
                 .filter(v -> v.equals(value))
                 .mapToInt(n -> 1)
                 .sum();
@@ -58,7 +58,17 @@ public class SudokuBoard {
     }
 
     public boolean isInBlock(int row, int col, int value) {
-        return true;
+        int r = row - row % 3;
+        int c = col - col % 3;
+
+        for(int i = r; i < r + 3; i++) {
+            for(int j = c; j < c + 3; j++) {
+                if(board.get(i).getElement(j).getValue() == value) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
