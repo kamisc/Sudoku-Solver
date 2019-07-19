@@ -129,6 +129,19 @@ public class SudokuBoard {
         }
     }
 
+    public void removeValueFromPossibleValues() {
+        for(int i = 0; i < MAX_INDEX; i++) {
+            for(int j = 0; j < MAX_INDEX; j++) {
+                int elementValue = board.get(i).getElement(j).getValue();
+                if(elementValue != 0) {
+                    removeValueFromPossibleValuesInRow(i, elementValue);
+                    removeValueFromPossibleValuesInColumn(j, elementValue);
+                    removeValueFromPossibleValuesInBlock(i, j, elementValue);
+                }
+            }
+        }
+    }
+
     @Override
     public String toString() {
         String displayBoard = "";
