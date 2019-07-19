@@ -2,6 +2,7 @@ package com.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
@@ -103,16 +104,29 @@ public class SudokuBoard {
         return false;
     }
 
-    public void removeValueFromPossibleValuesInRow() {
-
+    public void removeValueFromPossibleValuesInRow(int row, int value) {
+        for(SudokuElement sudokuElement : board.get(row).getRow()) {
+            List<Integer> possibleValues = sudokuElement.getPossibleValues();
+            possibleValues.removeIf(v -> v == value);
+        }
     }
 
-    public void removeValueFromPossibleValuesInColumn() {
-
+    public void removeValueFromPossibleValuesInColumn(int col, int value) {
+        for(SudokuRow sudokuRow : board) {
+            List<Integer> possibleValues = sudokuRow.getElement(col).getPossibleValues();
+            possibleValues.removeIf(v -> v == value);
+        }
     }
 
-    public void removeValueFromPossibleValuesInBlock() {
+    public void removeValueFromPossibleValuesInBlock(int row, int col, int value) {
+        int r = row - row % 3;
+        int c = col - col % 3;
 
+        for(int i = r; i < r + 3; i++) {
+            for(int j = c; j < c + 3; j++) {
+                removeValueFromPossibleValuesInColumn(j, value);
+            }
+        }
     }
 
     @Override
