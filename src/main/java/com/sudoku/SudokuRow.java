@@ -27,4 +27,11 @@ public class SudokuRow {
     public void addElement(int column, int value) {
         row.add(column, new SudokuElement(value));
     }
+
+    @Override
+    public String toString() {
+        return "SudokuRow{" +
+                "row=" + row +
+                '}';
+    }
 }

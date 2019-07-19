@@ -71,6 +71,50 @@ public class SudokuBoard {
         return false;
     }
 
+    public boolean isInPossibleValuesRow(int row, int value) {
+        int checkRow = board.get(row).getRow().stream()
+                .flatMap(p -> p.getPossibleValues().stream())
+                .filter(v -> v.equals(value))
+                .mapToInt(n -> 1)
+                .sum();
+        return checkRow > 0;
+    }
+
+    public boolean isInPossibleValuesColumn(int col, int value) {
+        int checkColumn = board.stream()
+                .flatMap(p -> p.getElement(col).getPossibleValues().stream())
+                .filter(v -> v.equals(value))
+                .mapToInt(n -> 1)
+                .sum();
+        return checkColumn > 0;
+    }
+
+    public boolean isInPossibleValuesBlock(int row, int col, int value) {
+        int r = row - row % 3;
+        int c = col - col % 3;
+
+        for(int i = r; i < r + 3; i++) {
+            for(int j = c; j < c + 3; j++) {
+                if(board.get(i).getElement(j).getPossibleValues().get(j) == value) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void removeValueFromPossibleValuesInRow() {
+
+    }
+
+    public void removeValueFromPossibleValuesInColumn() {
+
+    }
+
+    public void removeValueFromPossibleValuesInBlock() {
+
+    }
+
     @Override
     public String toString() {
         String displayBoard = "";

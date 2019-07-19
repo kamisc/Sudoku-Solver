@@ -19,9 +19,12 @@ public class SudokuGame {
             SudokuGame theGame = new SudokuGame();
             gameFinished = theGame.resolveSudoku();
 
+            System.out.println(sudokuBoard);
+
             menu.menu(sudokuBoard);
 
-            System.out.println(sudokuBoard);
+
+            // System.out.println(sudokuBoard.getRow(0));
         }
     }
 
