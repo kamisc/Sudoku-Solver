@@ -1,8 +1,5 @@
 package com.sudoku;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Author Kamil Seweryn
  */
@@ -23,8 +20,12 @@ public class SudokuGame {
 
             menu.menu(sudokuBoard);
 
-
-            // System.out.println(sudokuBoard.getRow(0));
+            sudokuBoard.getRow(0).addElement(1, 1);
+            sudokuBoard.getRow(0).addElement(3, 2);
+            sudokuBoard.getRow(0).addElement(8, 3);
+            sudokuBoard.getRow(0).addElement(7, 4);
+            System.out.println(sudokuBoard.getRow(0));
+            System.out.println(sudokuBoard.getRow(0).getRow().size());
         }
     }
 

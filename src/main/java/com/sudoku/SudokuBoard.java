@@ -2,7 +2,6 @@ package com.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
@@ -156,3 +155,5 @@ public class SudokuBoard {
         return displayBoard;
     }
 }
+
+// Komórki w bloku

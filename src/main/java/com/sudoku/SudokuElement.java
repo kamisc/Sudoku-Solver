@@ -25,7 +25,7 @@ public class SudokuElement {
         return possibleValues;
     }
 
-    public List<Integer> possibleValues() {
+    private List<Integer> possibleValues() {
         for(int i = SudokuBoard.MIN_INDEX; i <= SudokuBoard.MAX_INDEX; i++) {
             possibleValues.add(i);
         }

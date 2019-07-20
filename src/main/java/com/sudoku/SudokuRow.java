@@ -25,7 +25,7 @@ public class SudokuRow {
     }
 
     public void addElement(int column, int value) {
-        row.add(column, new SudokuElement(value));
+        row.set(column, new SudokuElement(value));
     }
 
     @Override
