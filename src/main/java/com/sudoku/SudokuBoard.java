@@ -2,6 +2,7 @@ package com.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Author Kamil Seweryn
@@ -35,8 +36,8 @@ public class SudokuBoard {
         return board;
     }
 
-    public void addElementToTheBoard(int col, int row, int value) {
-        board.get(row).addElement(col,value);
+    public void addElementToTheBoard(int row, int col, int value) {
+        board.get(row).addElement(col, value);
     }
 
     public boolean isInRow(int row, int value) {
@@ -61,14 +62,9 @@ public class SudokuBoard {
         int r = row - row % 3;
         int c = col - col % 3;
 
-        for(int i = r; i < r + 3; i++) {
-            for(int j = c; j < c + 3; j++) {
-                if(board.get(i).getElement(j).getValue() == value) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return IntStream.range(r, r + 3)
+                .anyMatch(i -> IntStream.range(c, c + 3)
+                        .anyMatch(j -> board.get(i).getElement(j).getValue() == value));
     }
 
     public boolean isInPossibleValuesRow(int row, int value) {
@@ -93,14 +89,9 @@ public class SudokuBoard {
         int r = row - row % 3;
         int c = col - col % 3;
 
-        for(int i = r; i < r + 3; i++) {
-            for(int j = c; j < c + 3; j++) {
-                if(board.get(i).getElement(j).getPossibleValues().get(j) == value) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return IntStream.range(r, r + 3)
+                .anyMatch(i -> IntStream.range(c, c + 3)
+                        .anyMatch(j -> board.get(i).getElement(j).getPossibleValues().contains(value)));
     }
 
     public void removeValueFromPossibleValuesInRow(int row, int value) {
@@ -121,9 +112,11 @@ public class SudokuBoard {
         int r = row - row % 3;
         int c = col - col % 3;
 
-        for(int i = r; i < r + 3; i++) {
+        for(int i = 0; i < 3; i++) {
+            SudokuBoard rows = new SudokuBoard();
+            rows.addRow(board.get(r + i));
             for(int j = c; j < c + 3; j++) {
-                removeValueFromPossibleValuesInColumn(j, value);
+                rows.removeValueFromPossibleValuesInColumn(j, value);
             }
         }
     }
@@ -132,7 +125,7 @@ public class SudokuBoard {
         for(int i = 0; i < MAX_INDEX; i++) {
             for(int j = 0; j < MAX_INDEX; j++) {
                 int elementValue = board.get(i).getElement(j).getValue();
-                if(elementValue != 0) {
+                if(elementValue > 0) {
                     removeValueFromPossibleValuesInRow(i, elementValue);
                     removeValueFromPossibleValuesInColumn(j, elementValue);
                     removeValueFromPossibleValuesInBlock(i, j, elementValue);
@@ -155,5 +148,3 @@ public class SudokuBoard {
         return displayBoard;
     }
 }
-
-// Komórki w bloku

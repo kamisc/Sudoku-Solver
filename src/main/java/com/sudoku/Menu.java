@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Menu {
 
     private Scanner sc = new Scanner(System.in);
+    private int choice;
 
     public void menu(SudokuBoard sudokuBoard) {
         System.out.println("What do you want to do?\n" +
@@ -17,11 +18,19 @@ public class Menu {
                 "3. End game" +
                 "\n\nRemeber to confirm all operations by click the ENTER!");
 
-        int choice = sc.nextInt();
+        try {
+            choice = sc.nextInt();
+            if(choice < 1 || choice > 3) {
+                throw new WrongChoice();
+            }
+        } catch (WrongChoice e) {
+            System.out.println(e.getMessage() + "You must pick 1, 2 or 3!");
+        }
 
         switch (choice) {
             case 1:
                 System.out.println("Set number to the board - X, Y, VALUE. After get number computer display the board.");
+
                 System.out.println("Set X - column: ");
                 int col = sc.nextInt() - 1;
 
@@ -31,7 +40,7 @@ public class Menu {
                 System.out.println("Set VALUE: ");
                 int value = sc.nextInt();
 
-                sudokuBoard.addElementToTheBoard(col, row, value);
+                sudokuBoard.addElementToTheBoard(row, col, value);
                 break;
 
             case 2:
@@ -41,7 +50,8 @@ public class Menu {
                 System.exit(0);
                 break;
         }
-
     }
+
+    // Metoda wpisująca
 
 }
