@@ -67,6 +67,10 @@ public class SudokuBoard {
                         .anyMatch(j -> board.get(i).getElement(j).getValue() == value));
     }
 
+    public boolean isInRowColumnBlock(int row, int col, int value) {
+        return isInRow(row, value) || isInColumn(col, value) || isInBlock(row, col, value);
+    }
+
     public boolean isInPossibleValuesRow(int row, int value) {
         int checkRow = board.get(row).getRow().stream()
                 .flatMap(p -> p.getPossibleValues().stream())
@@ -133,6 +137,33 @@ public class SudokuBoard {
             }
         }
     }
+
+    public void addElementIfIsTheOnlyOneInPossibleValue() {
+        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
+            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
+                if(board.get(i).getElement(j).getPossibleValues().size() == 1
+                        && board.get(i).getElement(j).getValue() == 0) {
+                    for(Integer possibleValue : board.get(i).getElement(j).getPossibleValues()) {
+                        if(!isInRowColumnBlock(i, j, possibleValue)) {
+                            addElementToTheBoard(i, j, board.get(i).getElement(j).getPossibleValues().get(0));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean checkIsEmptyElement() {
+        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
+            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
+                if(board.get(i).getElement(j).getValue() == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {

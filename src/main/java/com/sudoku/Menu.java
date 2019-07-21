@@ -24,7 +24,7 @@ public class Menu {
                 throw new WrongChoice();
             }
         } catch (WrongChoice e) {
-            System.out.println(e.getMessage() + "You must pick 1, 2 or 3!");
+            System.out.println(e.getMessage() + "You must pick 1, 2 or 3!\n");
         }
 
         switch (choice) {
@@ -32,26 +32,43 @@ public class Menu {
                 System.out.println("Set number to the board - X, Y, VALUE. After get number computer display the board.");
 
                 System.out.println("Set X - column: ");
-                int col = sc.nextInt() - 1;
+                int col = setNumber() - 1;
 
                 System.out.println("Set Y - row: ");
-                int row = sc.nextInt() - 1;
+                int row = setNumber() - 1;
 
                 System.out.println("Set VALUE: ");
-                int value = sc.nextInt();
+                int value = setNumber();
 
                 sudokuBoard.addElementToTheBoard(row, col, value);
                 break;
-
             case 2:
+                while (sudokuBoard.checkIsEmptyElement()) {
+                    sudokuBoard.removeValueFromPossibleValues();
+                    sudokuBoard.addElementIfIsTheOnlyOneInPossibleValue();
+                }
                 break;
-
             case 3:
                 System.exit(0);
                 break;
         }
     }
 
-    // Metoda wpisująca
+    private int setNumber() {
+        boolean isValid = false;
 
+        while (!isValid) {
+            try {
+                choice = sc.nextInt();
+                if(choice < 1 || choice > 9) {
+                    throw new WrongChoice();
+                } else {
+                    isValid = true;
+                }
+            } catch (WrongChoice e) {
+                System.out.println(e.getMessage() + "You must write number between 1 to 9.");
+            }
+        }
+        return choice;
+    }
 }

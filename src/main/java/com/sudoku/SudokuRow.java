@@ -2,7 +2,6 @@ package com.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * Author Kamil Seweryn
