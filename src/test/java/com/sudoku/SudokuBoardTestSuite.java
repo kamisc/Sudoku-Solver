@@ -356,4 +356,29 @@ public class SudokuBoardTestSuite {
         Assert.assertFalse(isNotIn2);
         Assert.assertFalse(isNotIn3);
     }
+
+    @Test
+    public void testAddElementIfIsTheOnlyOneInPossibleValue() {
+        // Given
+
+        // When
+        sudokuBoard.removeValueFromPossibleValues();
+        sudokuBoard.addElementIfIsTheOnlyOneInPossibleValue();
+
+        int value = sudokuBoard.getRow(4).getElement(4).getValue();
+
+        // Then
+        Assert.assertEquals(5, value);
+    }
+
+    @Test
+    public void testCheckIsEmptyElement() {
+        // Given
+
+        // When
+        boolean isEmptyElement = sudokuBoard.checkIsEmptyElement();
+
+        // Then
+        Assert.assertTrue(isEmptyElement);
+    }
 }
