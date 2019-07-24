@@ -381,4 +381,66 @@ public class SudokuBoardTestSuite {
         // Then
         Assert.assertTrue(isEmptyElement);
     }
+
+    @Test
+    public void testDeepCopy() throws CloneNotSupportedException {
+        // Given
+        sudokuBoard.removeValueFromPossibleValues();
+        SudokuBoard deepClonedSudokuBoard = null;
+        try {
+            deepClonedSudokuBoard = sudokuBoard.deepCopy();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // When
+         int size = deepClonedSudokuBoard.getBoard().size();
+
+        // Then
+        Assert.assertEquals(9, size);
+    }
+
+    @Test
+    public void testDeepCopyGetElement() throws CloneNotSupportedException {
+        // Given
+        sudokuBoard.removeValueFromPossibleValues();
+        SudokuBoard deepClonedSudokuBoard = null;
+        try {
+            deepClonedSudokuBoard = sudokuBoard.deepCopy();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // When
+        int value1 = deepClonedSudokuBoard.getRow(8).getElement(8).getValue();
+        int value2 = deepClonedSudokuBoard.getRow(3).getElement(4).getValue();
+        int value3 = deepClonedSudokuBoard.getRow(1).getElement(5).getValue();
+
+        // Then
+        Assert.assertEquals(9, value1);
+        Assert.assertEquals(6, value2);
+        Assert.assertEquals(5, value3);
+    }
+
+    @Test
+    public void testDeepCopyGetPossibleValues() throws CloneNotSupportedException {
+        // Given
+        sudokuBoard.removeValueFromPossibleValues();
+        SudokuBoard deepClonedSudokuBoard = null;
+        try {
+            deepClonedSudokuBoard = sudokuBoard.deepCopy();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // When
+        int value1 = deepClonedSudokuBoard.getRow(8).getElement(8).getPossibleValues().get(0);
+        int value2 = deepClonedSudokuBoard.getRow(3).getElement(4).getPossibleValues().get(1);
+        int value3 = deepClonedSudokuBoard.getRow(1).getElement(5).getPossibleValues().get(2);
+
+        // Then
+        Assert.assertEquals(4, value1);
+        Assert.assertEquals(5, value2);
+        Assert.assertEquals(8, value3);
+    }
 }

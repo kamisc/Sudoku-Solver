@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
  * Author Kamil Seweryn
  */
 
-public class SudokuBoard {
+public class SudokuBoard extends Prototype {
     private List<SudokuRow> board = new ArrayList<>();
     public final static int MIN_INDEX = 1;
     public final static int MAX_INDEX = 9;
@@ -164,6 +164,28 @@ public class SudokuBoard {
         return false;
     }
 
+    public SudokuBoard deepCopy() throws CloneNotSupportedException {
+        SudokuBoard clonedSudokuBoard = (SudokuBoard)super.clone();
+        clonedSudokuBoard.board = new ArrayList<>();
+
+        for(SudokuRow sudokuRow : board) {
+            List<SudokuElement> clonedElementList = new ArrayList<>();
+            SudokuRow clonedRow = new SudokuRow();
+            clonedRow.setRow(clonedElementList);
+
+            for(SudokuElement sudokuElement : sudokuRow.getRow()) {
+                List<Integer> clonedPossibleValues = new ArrayList<>();
+
+                clonedPossibleValues.addAll(sudokuElement.getPossibleValues());
+
+                SudokuElement clonedElement = new SudokuElement(sudokuElement.getValue());
+                clonedElement.setPossibleValues(clonedPossibleValues);
+                clonedElementList.add(clonedElement);
+            }
+            clonedSudokuBoard.addRow(clonedRow);
+        }
+        return clonedSudokuBoard;
+    }
 
     @Override
     public String toString() {

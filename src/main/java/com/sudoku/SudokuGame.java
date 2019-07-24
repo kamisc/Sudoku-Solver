@@ -6,10 +6,12 @@ package com.sudoku;
 
 public class SudokuGame {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
         Menu menu = new Menu();
         SudokuBoard sudokuBoard = new SudokuBoard();
         boolean gameFinished = false;
+
+        /// sudokuBoard.createBoard();
 
         sudokuBoard.addElementToTheBoard(0, 0, 5);
         sudokuBoard.addElementToTheBoard(0, 1, 3);
@@ -42,6 +44,8 @@ public class SudokuGame {
         sudokuBoard.addElementToTheBoard(8, 7, 7);
         sudokuBoard.addElementToTheBoard(8, 8, 9);
 
+        sudokuBoard.removeValueFromPossibleValues();
+
         while(!gameFinished) {
             SudokuGame theGame = new SudokuGame();
             gameFinished = theGame.resolveSudoku();
@@ -49,6 +53,8 @@ public class SudokuGame {
             System.out.println(sudokuBoard);
 
             menu.menu(sudokuBoard);
+
+            System.out.println(sudokuBoard.deepCopy()/*.getRow(4).getElement(4).getPossibleValues()*/);
         }
     }
 

@@ -28,6 +28,10 @@ public class SudokuRow {
         row.set(column, new SudokuElement(value));
     }
 
+    public void setRow(List<SudokuElement> row) {
+        this.row = row;
+    }
+
     @Override
     public String toString() {
         return "SudokuRow{" +
