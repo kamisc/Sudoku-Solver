@@ -43,10 +43,7 @@ public class Menu {
                 sudokuBoard.addElementToTheBoard(row, col, value);
                 break;
             case 2:
-                while (sudokuBoard.checkIsEmptyElement()) {
-                    sudokuBoard.removeValueFromPossibleValues();
-                    sudokuBoard.addElementIfIsTheOnlyOneInPossibleValue();
-                }
+                sudokuBoard.solveSudoku();
                 break;
             case 3:
                 System.exit(0);

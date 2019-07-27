@@ -6,14 +6,12 @@ package com.sudoku;
 
 public class Backtrack {
     private SudokuBoard sudokuBoard;
-    private int positionCol;
-    private int positionRow;
+    private PositionDto positionDto;
     private int optionValue;
 
-    public Backtrack(SudokuBoard sudokuBoard, int positionCol, int positionRow, int optionValue) {
+    public Backtrack(SudokuBoard sudokuBoard, PositionDto positionDto, int optionValue) {
         this.sudokuBoard = sudokuBoard;
-        this.positionCol = positionCol;
-        this.positionRow = positionRow;
+        this.positionDto = positionDto;
         this.optionValue = optionValue;
     }
 
@@ -21,23 +19,11 @@ public class Backtrack {
         return sudokuBoard;
     }
 
-    public int getPositionCol() {
-        return positionCol;
-    }
-
-    public int getPositionRow() {
-        return positionRow;
+    public PositionDto getPositionDto() {
+        return positionDto;
     }
 
     public int getOptionValue() {
         return optionValue;
-    }
-
-    public void setPositionCol(int positionCol) {
-        this.positionCol = positionCol;
-    }
-
-    public void setPositionRow(int positionRow) {
-        this.positionRow = positionRow;
     }
 }

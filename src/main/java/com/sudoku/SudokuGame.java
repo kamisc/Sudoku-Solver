@@ -11,8 +11,29 @@ public class SudokuGame {
         SudokuBoard sudokuBoard = new SudokuBoard();
         boolean gameFinished = false;
 
-        /// sudokuBoard.createBoard();
+        // sudokuBoard.createBoard();
 
+        testHardBoard(sudokuBoard);
+
+        sudokuBoard.removeValueFromPossibleValues();
+
+        while(!gameFinished) {
+            SudokuGame theGame = new SudokuGame();
+            gameFinished = theGame.resolveSudoku();
+
+            System.out.println(sudokuBoard);
+
+            menu.menu(sudokuBoard);
+
+            // System.out.println(sudokuBoard.deepCopy()/*.getRow(4).getElement(4).getPossibleValues()*/);
+        }
+    }
+
+    public boolean resolveSudoku() {
+        return false;
+    }
+
+    public static  void testEasyBoard(SudokuBoard sudokuBoard) {
         sudokuBoard.addElementToTheBoard(0, 0, 5);
         sudokuBoard.addElementToTheBoard(0, 1, 3);
         sudokuBoard.addElementToTheBoard(0, 4, 7);
@@ -43,22 +64,39 @@ public class SudokuGame {
         sudokuBoard.addElementToTheBoard(8, 4, 8);
         sudokuBoard.addElementToTheBoard(8, 7, 7);
         sudokuBoard.addElementToTheBoard(8, 8, 9);
-
-        sudokuBoard.removeValueFromPossibleValues();
-
-        while(!gameFinished) {
-            SudokuGame theGame = new SudokuGame();
-            gameFinished = theGame.resolveSudoku();
-
-            System.out.println(sudokuBoard);
-
-            menu.menu(sudokuBoard);
-
-            System.out.println(sudokuBoard.deepCopy()/*.getRow(4).getElement(4).getPossibleValues()*/);
-        }
     }
 
-    public boolean resolveSudoku() {
-        return false;
+    public static void testHardBoard(SudokuBoard sudokuBoard) {
+        sudokuBoard.addElementToTheBoard(0, 0, 7);
+        sudokuBoard.addElementToTheBoard(0, 1, 8);
+        sudokuBoard.addElementToTheBoard(0, 3, 2);
+        sudokuBoard.addElementToTheBoard(0, 8, 1);
+
+        sudokuBoard.addElementToTheBoard(2, 2, 1);
+        sudokuBoard.addElementToTheBoard(2, 3, 7);
+        sudokuBoard.addElementToTheBoard(2, 5, 8);
+        sudokuBoard.addElementToTheBoard(2, 6, 5);
+
+        sudokuBoard.addElementToTheBoard(3, 0, 5);
+        sudokuBoard.addElementToTheBoard(3, 2, 9);
+        sudokuBoard.addElementToTheBoard(3, 8, 4);
+
+        sudokuBoard.addElementToTheBoard(4, 1, 7);
+        sudokuBoard.addElementToTheBoard(4, 4, 6);
+        sudokuBoard.addElementToTheBoard(4, 7, 3);
+
+        sudokuBoard.addElementToTheBoard(5, 0, 1);
+        sudokuBoard.addElementToTheBoard(5, 6, 2);
+        sudokuBoard.addElementToTheBoard(5, 8, 8);
+
+        sudokuBoard.addElementToTheBoard(6, 2, 8);
+        sudokuBoard.addElementToTheBoard(6, 3, 1);
+        sudokuBoard.addElementToTheBoard(6, 5, 3);
+        sudokuBoard.addElementToTheBoard(6, 6, 9);
+
+        sudokuBoard.addElementToTheBoard(8, 0, 6);
+        sudokuBoard.addElementToTheBoard(8, 5, 4);
+        sudokuBoard.addElementToTheBoard(8, 7, 7);
+        sudokuBoard.addElementToTheBoard(8, 8, 3);
     }
 }

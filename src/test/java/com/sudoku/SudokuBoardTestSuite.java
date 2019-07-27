@@ -363,7 +363,7 @@ public class SudokuBoardTestSuite {
 
         // When
         sudokuBoard.removeValueFromPossibleValues();
-        sudokuBoard.addElementIfIsTheOnlyOneInPossibleValue();
+        sudokuBoard.addElementIfIsTheOnlyOneInPossibleValues();
 
         int value = sudokuBoard.getRow(4).getElement(4).getValue();
 
@@ -457,5 +457,29 @@ public class SudokuBoardTestSuite {
         // Then
         Assert.assertEquals(0, row);
         Assert.assertEquals(2, col);
+    }
+
+    @Test
+    public void testGuessValue() throws CloneNotSupportedException {
+        // Given
+
+        // When
+        sudokuBoard.removeValueFromPossibleValues();
+
+        int startValue = sudokuBoard.getRow(0).getElement(2).getValue();
+        int startSize = sudokuBoard.getRow(0).getElement(2).getPossibleValues().size();
+
+        sudokuBoard.guessValue();
+
+        sudokuBoard.removeValueFromPossibleValues();
+
+        int valueAfterGuess = sudokuBoard.getRow(0).getElement(2).getValue();
+        int sizeAfterGuess = sudokuBoard.getRow(0).getElement(2).getPossibleValues().size();
+
+        // Then
+        Assert.assertEquals(0, startValue);
+        Assert.assertEquals(3, startSize);
+        Assert.assertEquals(1, valueAfterGuess);
+        Assert.assertEquals(2, sizeAfterGuess);
     }
 }
