@@ -443,4 +443,19 @@ public class SudokuBoardTestSuite {
         Assert.assertEquals(5, value2);
         Assert.assertEquals(8, value3);
     }
+
+    @Test
+    public void testFindFirstEmptyElement() {
+        // Given
+
+        // When
+        sudokuBoard.removeValueFromPossibleValues();
+
+        int row = sudokuBoard.findFirstEmptyElement().getEmptyRow();
+        int col = sudokuBoard.findFirstEmptyElement().getEmptyColumn();
+
+        // Then
+        Assert.assertEquals(0, row);
+        Assert.assertEquals(2, col);
+    }
 }

@@ -170,7 +170,7 @@ public class SudokuBoard extends Prototype {
         return false;
     }
 
-    public PositionDto findEmptyElement() {
+    public PositionDto findFirstEmptyElement() {
 
         PositionDto positionDto = new PositionDto(SudokuElement.EMPTY, SudokuElement.EMPTY);
 
