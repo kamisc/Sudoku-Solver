@@ -7,13 +7,13 @@ package com.sudoku;
 public class Backtrack {
     private SudokuBoard sudokuBoard;
     private int positionCol;
-    private int positoonRow;
+    private int positonRow;
     private int optionValue;
 
-    public Backtrack(SudokuBoard sudokuBoard, int positionCol, int positoonRow, int optionValue) {
+    public Backtrack(SudokuBoard sudokuBoard, int positionCol, int positonRow, int optionValue) {
         this.sudokuBoard = sudokuBoard;
         this.positionCol = positionCol;
-        this.positoonRow = positoonRow;
+        this.positonRow = positonRow;
         this.optionValue = optionValue;
     }
 
@@ -25,8 +25,8 @@ public class Backtrack {
         return positionCol;
     }
 
-    public int getPositoonRow() {
-        return positoonRow;
+    public int getPositonRow() {
+        return positonRow;
     }
 
     public int getOptionValue() {
@@ -37,7 +37,7 @@ public class Backtrack {
         this.positionCol = positionCol;
     }
 
-    public void setPositoonRow(int positoonRow) {
-        this.positoonRow = positoonRow;
+    public void setPositonRow(int positoonRow) {
+        this.positonRow = positoonRow;
     }
 }

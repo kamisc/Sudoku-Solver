@@ -10,6 +10,10 @@ import java.util.stream.IntStream;
 
 public class SudokuBoard extends Prototype {
     private List<SudokuRow> board = new ArrayList<>();
+    private Backtrack backtrack;
+    private int emptyRow;
+    private int emptyColumn;
+
     public final static int MIN_INDEX = 1;
     public final static int MAX_INDEX = 9;
 
@@ -98,6 +102,10 @@ public class SudokuBoard extends Prototype {
                         .anyMatch(j -> board.get(i).getElement(j).getPossibleValues().contains(value)));
     }
 
+    public boolean isInPossibleValuesRowColumnBlock(int row, int col, int value) {
+        return isInPossibleValuesRow(row, value) && isInPossibleValuesColumn(col,value) && isInPossibleValuesBlock(row, col, value);
+    }
+
     public void removeValueFromPossibleValuesInRow(int row, int value) {
         for(SudokuElement sudokuElement : board.get(row).getRow()) {
             List<Integer> possibleValues = sudokuElement.getPossibleValues();
@@ -162,6 +170,19 @@ public class SudokuBoard extends Prototype {
             }
         }
         return false;
+    }
+
+    public void findEmptyElement() {
+        for(int i = 0; i < MAX_INDEX; i++) {
+            SudokuRow sudokuRow = board.get(i);
+            for(int j = 0; j < MAX_INDEX; j++) {
+                SudokuElement sudokuElement = sudokuRow.getElement(j);
+                if(sudokuElement.getValue() == 0) {
+                    emptyRow = i;
+                    emptyColumn = j;
+                }
+            }
+        }
     }
 
     public SudokuBoard deepCopy() throws CloneNotSupportedException {
