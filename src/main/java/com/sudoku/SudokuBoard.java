@@ -11,8 +11,6 @@ import java.util.stream.IntStream;
 public class SudokuBoard extends Prototype {
     private List<SudokuRow> board = new ArrayList<>();
     private Backtrack backtrack;
-    private int emptyRow;
-    private int emptyColumn;
 
     public final static int MIN_INDEX = 1;
     public final static int MAX_INDEX = 9;
@@ -172,17 +170,22 @@ public class SudokuBoard extends Prototype {
         return false;
     }
 
-    public void findEmptyElement() {
+    public PositionDto findEmptyElement() {
+
+        PositionDto positionDto = new PositionDto(SudokuElement.EMPTY, SudokuElement.EMPTY);
+
         for(int i = 0; i < MAX_INDEX; i++) {
             SudokuRow sudokuRow = board.get(i);
             for(int j = 0; j < MAX_INDEX; j++) {
                 SudokuElement sudokuElement = sudokuRow.getElement(j);
                 if(sudokuElement.getValue() == 0) {
-                    emptyRow = i;
-                    emptyColumn = j;
+                    positionDto.setEmptyRow(i);
+                    positionDto.setEmptyColumn(j);
+                    return positionDto;
                 }
             }
         }
+        return positionDto;
     }
 
     public SudokuBoard deepCopy() throws CloneNotSupportedException {
