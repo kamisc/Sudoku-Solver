@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 public class SudokuBoard extends Prototype {
     private List<SudokuRow> board = new ArrayList<>();
-    private List<Backtrack> backtrack = new ArrayList<>();
+    public List<Backtrack> backtrack = new ArrayList<>();
 
     public final static int MIN_INDEX = 1;
     public final static int MAX_INDEX = 9;
@@ -167,7 +167,7 @@ public class SudokuBoard extends Prototype {
         return false;
     }
 
-    public void addElementIfIsTheOnlyOneInPossibleValues() {
+    public boolean addElementIfIsTheOnlyOneInPossibleValues() {
         for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
             for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
                 if(board.get(i).getElement(j).getPossibleValues().size() == 1
@@ -176,20 +176,6 @@ public class SudokuBoard extends Prototype {
 
                     if(!(isInRowColumnBlock(i, j, possibleValue))) {
                         addElementToTheBoard(i, j, board.get(i).getElement(j).getPossibleValues().get(0));
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean isTheOnlyOneInPossibleValues() {
-        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
-            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
-                if(board.get(i).getElement(j).getPossibleValues().size() == 1
-                        && board.get(i).getElement(j).getValue() == 0) {
-                    int possibleValue = board.get(i).getElement(j).getPossibleValues().get(0);
-
-                    if(!isInRowColumnBlock(i, j, possibleValue)) {
                         return true;
                     }
                 }
@@ -198,24 +184,12 @@ public class SudokuBoard extends Prototype {
         return false;
     }
 
-    public void addElementIfIsPossibleValueOrPossibleInOtherCells() {
+    public boolean addElementIfIsPossibleValueOrPossibleInOtherCells() {
         for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
             for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
                 for(Integer value : getRow(i).getElement(j).getPossibleValues()) {
                     if(!(isInRowColumnBlock(i, j, value) || isInPossibleValuesRowColumnBlock(i, j, value) )) {
                         addElementToTheBoard(i, j, value);
-                    }
-                }
-            }
-        }
-    }
-
-    public boolean isPossibleValueOrPossibleInOtherCells() {
-        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
-            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
-                for(Integer value : getRow(i).getElement(j).getPossibleValues()) {
-                    if(!(isInRowColumnBlock(i, j, value)
-                            || isInPossibleValuesRowColumnBlock(i, j, value))) {
                         return true;
                     }
                 }
@@ -239,14 +213,26 @@ public class SudokuBoard extends Prototype {
         boolean isNotHard = true;
 
         while(isNotHard) {
-            System.out.println(2);
             removeValueFromPossibleValues();
-            addElementIfIsTheOnlyOneInPossibleValues();
-            addElementIfIsPossibleValueOrPossibleInOtherCells();
+            boolean checkOne = addElementIfIsTheOnlyOneInPossibleValues();
+            boolean checkTwo = addElementIfIsPossibleValueOrPossibleInOtherCells();
 
-            if(!(isPossibleValueOrPossibleInOtherCells() || isTheOnlyOneInPossibleValues())) {
+            if(!(checkOne || checkTwo)) {
                 isNotHard = false;
             }
+        }
+
+        if(!isNotHard) {
+            int row = findFirstEmptyElement().getEmptyRow();
+            int col = findFirstEmptyElement().getEmptyColumn();
+            guessValue(row, col);
+            /*if(!backtrack.isEmpty()) {
+                backtrack.remove(0);
+            }*/
+            System.out.println(findFirstEmptyElement().getEmptyRow() + " : " + findFirstEmptyElement().getEmptyColumn());
+            System.out.println(getRow(1).getElement(8).getPossibleValues());
+            System.out.println(backtrack.get(0).getSudokuBoard().getRow(1).getElement(8).getPossibleValues());
+            System.out.println(backtrack.size());
         }
     }
 

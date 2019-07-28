@@ -44,7 +44,6 @@ public class Menu {
                 break;
             case 2:
                 sudokuBoard.solveSudoku();
-                // sudokuBoard.resolveSudoku();
                 break;
             case 3:
                 System.exit(0);
