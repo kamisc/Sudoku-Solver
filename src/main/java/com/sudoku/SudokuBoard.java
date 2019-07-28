@@ -167,7 +167,7 @@ public class SudokuBoard extends Prototype {
         return false;
     }
 
-    public void addElementIfIsTheOnlyOneInPossibleValues() { // void -> boolean
+    public void addElementIfIsTheOnlyOneInPossibleValues() {
         for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
             for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
                 if(board.get(i).getElement(j).getPossibleValues().size() == 1
