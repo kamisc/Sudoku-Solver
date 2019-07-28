@@ -469,7 +469,7 @@ public class SudokuBoardTestSuite {
         int startValue = sudokuBoard.getRow(0).getElement(2).getValue();
         int startSize = sudokuBoard.getRow(0).getElement(2).getPossibleValues().size();
 
-        sudokuBoard.guessValue();
+        sudokuBoard.guessValue(0, 2);
 
         sudokuBoard.removeValueFromPossibleValues();
 

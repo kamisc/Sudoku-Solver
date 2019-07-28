@@ -11,7 +11,7 @@ public class Menu {
     private Scanner sc = new Scanner(System.in);
     private int choice;
 
-    public void menu(SudokuBoard sudokuBoard) {
+    public void menu(SudokuBoard sudokuBoard) throws CloneNotSupportedException {
         System.out.println("What do you want to do?\n" +
                 "1. Set new number to board\n" +
                 "2. Solve Sudoku\n" +
@@ -44,6 +44,7 @@ public class Menu {
                 break;
             case 2:
                 sudokuBoard.solveSudoku();
+                // sudokuBoard.resolveSudoku();
                 break;
             case 3:
                 System.exit(0);

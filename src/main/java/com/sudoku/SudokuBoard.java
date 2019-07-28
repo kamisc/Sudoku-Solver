@@ -43,20 +43,18 @@ public class SudokuBoard extends Prototype {
     }
 
     public boolean isInRow(int row, int value) {
-        int checkRow = board.get(row).getRow().stream()
+        long checkRow = board.get(row).getRow().stream()
                 .map(SudokuElement::getValue)
                 .filter(v -> v.equals(value))
-                .mapToInt(n -> 1)
-                .sum();
+                .count();
         return checkRow > 0;
     }
 
     public boolean isInColumn(int col, int value) {
-        int checkColumn = board.stream()
+        long checkColumn = board.stream()
                 .map(c -> c.getElement(col).getValue())
                 .filter(v -> v.equals(value))
-                .mapToInt(n -> 1)
-                .sum();
+                .count();
         return checkColumn > 0;
     }
 
@@ -74,20 +72,18 @@ public class SudokuBoard extends Prototype {
     }
 
     public boolean isInPossibleValuesRow(int row, int value) {
-        int checkRow = board.get(row).getRow().stream()
+        long checkRow = board.get(row).getRow().stream()
                 .flatMap(p -> p.getPossibleValues().stream())
                 .filter(v -> v.equals(value))
-                .mapToInt(n -> 1)
-                .sum();
+                .count();
         return checkRow > 0;
     }
 
     public boolean isInPossibleValuesColumn(int col, int value) {
-        int checkColumn = board.stream()
+        long checkColumn = board.stream()
                 .flatMap(p -> p.getElement(col).getPossibleValues().stream())
                 .filter(v -> v.equals(value))
-                .mapToInt(n -> 1)
-                .sum();
+                .count();
         return checkColumn > 0;
     }
 
@@ -101,7 +97,7 @@ public class SudokuBoard extends Prototype {
     }
 
     public boolean isInPossibleValuesRowColumnBlock(int row, int col, int value) {
-        return isInPossibleValuesRow(row, value) && isInPossibleValuesColumn(col,value) && isInPossibleValuesBlock(row, col, value);
+        return isInPossibleValuesRow(row, value) || isInPossibleValuesColumn(col,value) || isInPossibleValuesBlock(row, col, value);
     }
 
     public void removeValueFromPossibleValuesInRow(int row, int value) {
@@ -144,35 +140,20 @@ public class SudokuBoard extends Prototype {
         }
     }
 
-    public void addElementIfIsTheOnlyOneInPossibleValues() {
-        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
-            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
-                if(board.get(i).getElement(j).getPossibleValues().size() == 1
-                        && board.get(i).getElement(j).getValue() == 0) {
-                    for(Integer possibleValue : board.get(i).getElement(j).getPossibleValues()) {
-                        if(!isInRowColumnBlock(i, j, possibleValue)) {
-                            addElementToTheBoard(i, j, board.get(i).getElement(j).getPossibleValues().get(0));
-                        }
-                    }
-                }
-            }
-        }
-    }
+    public PositionDto findFirstEmptyElement() {
 
-    public boolean isTheOnlyOnInPossibleValues() {
+        PositionDto positionDto = new PositionDto(SudokuElement.EMPTY, SudokuElement.EMPTY);
+
         for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
             for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
-                if(board.get(i).getElement(j).getPossibleValues().size() == 1
-                        && board.get(i).getElement(j).getValue() == 0) {
-                    for(Integer possibleValue : board.get(i).getElement(j).getPossibleValues()) {
-                        if(!isInRowColumnBlock(i, j, possibleValue)) {
-                           return true;
-                        }
-                    }
+                if(getRow(i).getElement(j).getValue() == 0) {
+                    positionDto.setEmptyRow(i);
+                    positionDto.setEmptyColumn(j);
+                    return positionDto;
                 }
             }
         }
-        return false;
+        return positionDto;
     }
 
     public boolean checkIsEmptyElement() {
@@ -186,49 +167,87 @@ public class SudokuBoard extends Prototype {
         return false;
     }
 
-    public PositionDto findFirstEmptyElement() {
-
-        PositionDto positionDto = new PositionDto(SudokuElement.EMPTY, SudokuElement.EMPTY);
-
+    public void addElementIfIsTheOnlyOneInPossibleValues() { // void -> boolean
         for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
-            SudokuRow sudokuRow = board.get(i);
             for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
-                SudokuElement sudokuElement = sudokuRow.getElement(j);
-                if(sudokuElement.getValue() == 0) {
-                    positionDto.setEmptyRow(i);
-                    positionDto.setEmptyColumn(j);
-                    return positionDto;
+                if(board.get(i).getElement(j).getPossibleValues().size() == 1
+                        && board.get(i).getElement(j).getValue() == 0) {
+                    int possibleValue = board.get(i).getElement(j).getPossibleValues().get(0);
+
+                    if(!(isInRowColumnBlock(i, j, possibleValue))) {
+                        addElementToTheBoard(i, j, board.get(i).getElement(j).getPossibleValues().get(0));
+                    }
                 }
             }
         }
-        return positionDto;
     }
 
-    public void guessValue() throws CloneNotSupportedException {
-        int i = findFirstEmptyElement().getEmptyRow();
-        int j = findFirstEmptyElement().getEmptyColumn();
-        SudokuElement sudokuElement = board.get(i).getElement(j);
+    public boolean isTheOnlyOneInPossibleValues() {
+        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
+            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
+                if(board.get(i).getElement(j).getPossibleValues().size() == 1
+                        && board.get(i).getElement(j).getValue() == 0) {
+                    int possibleValue = board.get(i).getElement(j).getPossibleValues().get(0);
 
-        if(!sudokuElement.getPossibleValues().isEmpty()) {
-            int value = sudokuElement.getPossibleValues().get(0);
-            backtrack.add(new Backtrack(deepCopy(), findFirstEmptyElement(), value));
-            addElementToTheBoard(i, j, value);
+                    if(!isInRowColumnBlock(i, j, possibleValue)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void addElementIfIsPossibleValueOrPossibleInOtherCells() {
+        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
+            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
+                for(Integer value : getRow(i).getElement(j).getPossibleValues()) {
+                    if(!(isInRowColumnBlock(i, j, value) || isInPossibleValuesRowColumnBlock(i, j, value) )) {
+                        addElementToTheBoard(i, j, value);
+                    }
+                }
+            }
         }
     }
 
-    public void solveSudoku() {
+    public boolean isPossibleValueOrPossibleInOtherCells() {
+        for(int i = MIN_INDEX - 1; i < MAX_INDEX; i++) {
+            for(int j = MIN_INDEX - 1; j < MAX_INDEX; j++) {
+                for(Integer value : getRow(i).getElement(j).getPossibleValues()) {
+                    if(!(isInRowColumnBlock(i, j, value)
+                            || isInPossibleValuesRowColumnBlock(i, j, value))) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void guessValue(int row, int col) throws CloneNotSupportedException {
+        SudokuElement sudokuElement = getRow(row).getElement(col);
+        PositionDto positionDto = new PositionDto(row, col);
+
+        if(sudokuElement.getPossibleValues().size() > 0) {
+            int value = sudokuElement.getPossibleValues().get(0);
+            backtrack.add(new Backtrack(deepCopy(), positionDto, value));
+            addElementToTheBoard(row, col, value);
+        }
+    }
+
+    public void solveSudoku() throws CloneNotSupportedException {
         boolean isNotHard = true;
 
         while(isNotHard) {
+            System.out.println(2);
             removeValueFromPossibleValues();
             addElementIfIsTheOnlyOneInPossibleValues();
+            addElementIfIsPossibleValueOrPossibleInOtherCells();
+
+            if(!(isPossibleValueOrPossibleInOtherCells() || isTheOnlyOneInPossibleValues())) {
+                isNotHard = false;
+            }
         }
-
-        /*while (checkIsEmptyElement()) {
-
-            removeValueFromPossibleValues();
-            addElementIfIsTheOnlyOneInPossibleValues();
-        }*/
     }
 
     public SudokuBoard deepCopy() throws CloneNotSupportedException {
@@ -256,15 +275,19 @@ public class SudokuBoard extends Prototype {
 
     @Override
     public String toString() {
-        String displayBoard = "";
+        StringBuilder displayBoard = new StringBuilder();
         System.out.println("    " +  1 + "   " + 2 + "   " + 3 + "   " + 4 + "   " + 5 + "   " + 6 + "   " + 7 + "   " + 8 + "   " + 9);
         for(int i = MIN_INDEX; i <= MAX_INDEX; i++) {
-            displayBoard += "  -------------------------------------" + "\n" + i;
+            displayBoard.append("  -------------------------------------" + "\n").append(i);
             for(int j = MIN_INDEX; j <= MAX_INDEX; j++) {
-                displayBoard += " | " + board.get(i-1).getElement(j-1);
+                displayBoard.append(" | ").append(board.get(i - 1).getElement(j - 1));
             }
-            displayBoard += " |\n";
+            displayBoard.append(" |\n");
         }
-        return displayBoard;
+        return displayBoard.toString();
     }
 }
+
+// Analogiczna metoda przechodząca po wszystkich komórkach i sprawdza, czy jest wartość (empty), czy jest co
+// najmniej jedną wartość. Jeżeli nie ma to wyjątek - łapie przy miejscu gdzie deepCopy, po złapaniu, przywracam
+// skopiowany board

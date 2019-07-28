@@ -13,9 +13,9 @@ public class SudokuGame {
 
         // sudokuBoard.createBoard();
 
-        testHardBoard(sudokuBoard);
+        testEasyBoard(sudokuBoard);
 
-        sudokuBoard.removeValueFromPossibleValues();
+        //sudokuBoard.removeValueFromPossibleValues();
 
         while(!gameFinished) {
             SudokuGame theGame = new SudokuGame();
@@ -98,5 +98,48 @@ public class SudokuGame {
         sudokuBoard.addElementToTheBoard(8, 5, 4);
         sudokuBoard.addElementToTheBoard(8, 7, 7);
         sudokuBoard.addElementToTheBoard(8, 8, 3);
+    }
+
+    public static void testMediumBoard(SudokuBoard sudokuBoard) {
+        sudokuBoard.addElementToTheBoard(0, 0, 1);
+        sudokuBoard.addElementToTheBoard(0, 1, 4);
+        sudokuBoard.addElementToTheBoard(0, 3, 3);
+        sudokuBoard.addElementToTheBoard(0, 5, 2);
+
+        sudokuBoard.addElementToTheBoard(1, 2, 5);
+        sudokuBoard.addElementToTheBoard(1, 4, 9);
+        sudokuBoard.addElementToTheBoard(1, 8, 3);
+
+        sudokuBoard.addElementToTheBoard(2, 2, 3);
+        sudokuBoard.addElementToTheBoard(2, 4, 8);
+        sudokuBoard.addElementToTheBoard(2, 6, 6);
+        sudokuBoard.addElementToTheBoard(2, 8, 1);
+
+        sudokuBoard.addElementToTheBoard(3, 1, 7);
+        sudokuBoard.addElementToTheBoard(3, 4, 4);
+        sudokuBoard.addElementToTheBoard(3, 6, 2);
+        sudokuBoard.addElementToTheBoard(3, 8, 5);
+
+        sudokuBoard.addElementToTheBoard(4, 1, 3);
+        sudokuBoard.addElementToTheBoard(4, 7, 6);
+
+        sudokuBoard.addElementToTheBoard(5, 0, 5);
+        sudokuBoard.addElementToTheBoard(5, 2, 1);
+        sudokuBoard.addElementToTheBoard(5, 4, 2);
+        sudokuBoard.addElementToTheBoard(5, 7, 7);
+
+        sudokuBoard.addElementToTheBoard(6, 0, 2);
+        sudokuBoard.addElementToTheBoard(6, 2, 4);
+        sudokuBoard.addElementToTheBoard(6, 4, 3);
+        sudokuBoard.addElementToTheBoard(6, 6, 5);
+
+        sudokuBoard.addElementToTheBoard(7, 0, 9);
+        sudokuBoard.addElementToTheBoard(7, 4, 1);
+        sudokuBoard.addElementToTheBoard(7, 6, 7);
+
+        sudokuBoard.addElementToTheBoard(8, 3, 8);
+        sudokuBoard.addElementToTheBoard(8, 5, 9);
+        sudokuBoard.addElementToTheBoard(8, 7, 4);
+        sudokuBoard.addElementToTheBoard(8, 8, 2);
     }
 }
