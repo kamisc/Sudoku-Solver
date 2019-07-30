@@ -209,7 +209,7 @@ public class SudokuBoard extends Prototype {
         }
     }
 
-    public void solveSudoku() throws CloneNotSupportedException {
+    public void solveEasySudoku() throws CloneNotSupportedException {
         boolean isNotHard = true;
 
         while(isNotHard) {
@@ -221,30 +221,28 @@ public class SudokuBoard extends Prototype {
                 isNotHard = false;
             }
         }
+    }
 
-        while(!isNotHard) {
+    public void solveSudoku() throws CloneNotSupportedException {
+        boolean isHard = true;
+
+        solveEasySudoku();
+
+        while(isHard) {
             int row = findFirstEmptyElement().getEmptyRow();
             int col = findFirstEmptyElement().getEmptyColumn();
-            // guessValue(row, col);
+            guessValue(row, col);
             if(getRow(row).getElement(col).getPossibleValues().isEmpty()) {
                 int value = backtrack.get(0).getOptionValue();
                 PositionDto positionDto = backtrack.get(0).getPositionDto();
                 board = backtrack.get(0).getSudokuBoard().getBoard();
-                removeValueFromPossibleValues();
-                boolean checkOne = addElementIfIsTheOnlyOneInPossibleValues();
-                boolean checkTwo = addElementIfIsPossibleValueOrPossibleInOtherCells();
-                if(!(checkOne || checkTwo)) {
-                    isNotHard = true;
-                }
-                //addElementToTheBoard(row, col, value);
                 backtrack.remove(0);
                 backtrack.get(0).getSudokuBoard().getRow(positionDto.getEmptyRow()).getElement(positionDto.getEmptyColumn()).getPossibleValues().removeIf(v -> v == value);
-            } else {
-                guessValue(row, col);
+                solveEasySudoku();
             }
 
             if(checkIsEmptyElement()) {
-                isNotHard = true;
+                isHard = false;
             }
 
 
