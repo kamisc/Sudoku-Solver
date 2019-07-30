@@ -13,7 +13,7 @@ public class SudokuGame {
 
         // sudokuBoard.createBoard();
 
-        testHardBoard(sudokuBoard);
+        testEvilBoard(sudokuBoard);
         sudokuBoard.removeValueFromPossibleValues();
 
         while(!gameFinished) {

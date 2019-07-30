@@ -222,16 +222,35 @@ public class SudokuBoard extends Prototype {
             }
         }
 
-        if(!isNotHard) {
+        while(!isNotHard) {
             int row = findFirstEmptyElement().getEmptyRow();
             int col = findFirstEmptyElement().getEmptyColumn();
-            guessValue(row, col);
+            // guessValue(row, col);
+            if(getRow(row).getElement(col).getPossibleValues().isEmpty()) {
+                int value = backtrack.get(0).getOptionValue();
+                PositionDto positionDto = backtrack.get(0).getPositionDto();
+                board = backtrack.get(0).getSudokuBoard().getBoard();
+                removeValueFromPossibleValues();
+                boolean checkOne = addElementIfIsTheOnlyOneInPossibleValues();
+                boolean checkTwo = addElementIfIsPossibleValueOrPossibleInOtherCells();
+                if(!(checkOne || checkTwo)) {
+                    isNotHard = true;
+                }
+                //addElementToTheBoard(row, col, value);
+                backtrack.remove(0);
+                backtrack.get(0).getSudokuBoard().getRow(positionDto.getEmptyRow()).getElement(positionDto.getEmptyColumn()).getPossibleValues().removeIf(v -> v == value);
+            } else {
+                guessValue(row, col);
+            }
+
+            if(checkIsEmptyElement()) {
+                isNotHard = true;
+            }
+
+
             /*if(!backtrack.isEmpty()) {
                 backtrack.remove(0);
             }*/
-            System.out.println(findFirstEmptyElement().getEmptyRow() + " : " + findFirstEmptyElement().getEmptyColumn());
-            System.out.println(getRow(1).getElement(8).getPossibleValues());
-            System.out.println(backtrack.get(0).getSudokuBoard().getRow(1).getElement(8).getPossibleValues());
             System.out.println(backtrack.size());
         }
     }
