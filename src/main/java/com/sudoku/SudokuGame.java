@@ -132,4 +132,38 @@ public class SudokuGame {
         sudokuBoard.addElementToTheBoard(8, 4, 1);
         sudokuBoard.addElementToTheBoard(8, 8, 9);
     }
+
+    public static void testOtherHardBoard(SudokuBoard sudokuBoard) {
+        sudokuBoard.addElementToTheBoard(0, 0, 7);
+        sudokuBoard.addElementToTheBoard(0, 4, 3);
+        sudokuBoard.addElementToTheBoard(0, 8, 1);
+
+        sudokuBoard.addElementToTheBoard(1, 3, 1);
+        sudokuBoard.addElementToTheBoard(1, 4, 7);
+        sudokuBoard.addElementToTheBoard(1, 5, 8);
+
+        sudokuBoard.addElementToTheBoard(2, 2, 5);
+        sudokuBoard.addElementToTheBoard(2, 6, 2);
+
+        sudokuBoard.addElementToTheBoard(3, 1, 2);
+        sudokuBoard.addElementToTheBoard(3, 2, 6);
+        sudokuBoard.addElementToTheBoard(3, 6, 4);
+        sudokuBoard.addElementToTheBoard(3, 7, 9);
+
+        sudokuBoard.addElementToTheBoard(5, 1, 8);
+        sudokuBoard.addElementToTheBoard(5, 2, 4);
+        sudokuBoard.addElementToTheBoard(5, 6, 7);
+        sudokuBoard.addElementToTheBoard(5, 7, 2);
+
+        sudokuBoard.addElementToTheBoard(6, 2, 3);
+        sudokuBoard.addElementToTheBoard(6, 6, 6);
+
+        sudokuBoard.addElementToTheBoard(7, 3, 3);
+        sudokuBoard.addElementToTheBoard(7, 4, 5);
+        sudokuBoard.addElementToTheBoard(7, 5, 9);
+
+        sudokuBoard.addElementToTheBoard(8, 0, 4);
+        sudokuBoard.addElementToTheBoard(8, 4, 1);
+        sudokuBoard.addElementToTheBoard(8, 8, 9);
+    }
 }

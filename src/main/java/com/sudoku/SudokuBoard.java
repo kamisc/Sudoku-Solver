@@ -213,12 +213,21 @@ public class SudokuBoard extends Prototype {
         boolean isNotHard = true;
 
         while(isNotHard) {
-            removeValueFromPossibleValues();
-            boolean checkOne = addElementIfIsTheOnlyOneInPossibleValues();
-            boolean checkTwo = addElementIfIsPossibleValueOrPossibleInOtherCells();
+            if (isNotHard) {
+                removeValueFromPossibleValues();
+                boolean checkOne = addElementIfIsTheOnlyOneInPossibleValues();
+                boolean checkTwo = addElementIfIsPossibleValueOrPossibleInOtherCells();
 
-            if(!(checkOne || checkTwo)) {
-                isNotHard = false;
+                if(!(checkOne || checkTwo)) {
+                    isNotHard = false;
+                }
+            } else {
+                removeValueFromPossibleValues();
+                int value = backtrack.get(0).getOptionValue();
+                PositionDto position = backtrack.get(0).getPositionDto();
+                board = backtrack.get(0).getSudokuBoard().getBoard();
+                backtrack.remove(0);
+                getRow(position.getEmptyRow()).getElement(position.getEmptyColumn()).getPossibleValues().removeIf(v -> v == value);
             }
         }
     }
@@ -228,18 +237,19 @@ public class SudokuBoard extends Prototype {
 
         solveEasySudoku();
 
-        while(isHard) {
+        if(isHard) {
             int row = findFirstEmptyElement().getEmptyRow();
             int col = findFirstEmptyElement().getEmptyColumn();
             guessValue(row, col);
-            if(getRow(row).getElement(col).getPossibleValues().isEmpty()) {
+            //solveEasySudoku();
+            /*if(getRow(row).getElement(col).getPossibleValues().isEmpty()) {
                 int value = backtrack.get(0).getOptionValue();
                 PositionDto positionDto = backtrack.get(0).getPositionDto();
                 board = backtrack.get(0).getSudokuBoard().getBoard();
                 backtrack.remove(0);
                 backtrack.get(0).getSudokuBoard().getRow(positionDto.getEmptyRow()).getElement(positionDto.getEmptyColumn()).getPossibleValues().removeIf(v -> v == value);
                 solveEasySudoku();
-            }
+            }*/
 
             if(checkIsEmptyElement()) {
                 isHard = false;
@@ -249,7 +259,6 @@ public class SudokuBoard extends Prototype {
             /*if(!backtrack.isEmpty()) {
                 backtrack.remove(0);
             }*/
-            System.out.println(backtrack.size());
         }
     }
 
