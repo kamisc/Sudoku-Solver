@@ -43,7 +43,15 @@ public class Menu {
                 sudokuBoard.addElementToTheBoard(row, col, value);
                 break;
             case 2:
-                sudokuBoard.solveSudoku();
+                System.out.println("Start solving your SUDOKU...\n");
+                while (sudokuBoard.checkIsEmptyElement()) {
+                    sudokuBoard.solveSudoku();
+                }
+                if(!sudokuBoard.checkIsEmptyElement()) {
+                    System.out.println("You solved the SUDOKU!\n");
+                    System.out.println(sudokuBoard.toString());
+                    System.exit(0);
+                }
                 break;
             case 3:
                 System.exit(0);

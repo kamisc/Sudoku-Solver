@@ -12,7 +12,7 @@ public class SudokuRow {
 
     public SudokuRow() {
         for(int i = SudokuBoard.MIN_INDEX; i <= SudokuBoard.MAX_INDEX; i++) {
-            row.add(i-1, new SudokuElement(SudokuElement.EMPTY));
+            row.add(i - 1, new SudokuElement(SudokuElement.EMPTY));
         }
     }
 
@@ -30,12 +30,5 @@ public class SudokuRow {
 
     public void setRow(List<SudokuElement> row) {
         this.row = row;
-    }
-
-    @Override
-    public String toString() {
-        return "SudokuRow{" +
-                "row=" + row +
-                '}';
     }
 }

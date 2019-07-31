@@ -26,13 +26,4 @@ public class Backtrack {
     public int getOptionValue() {
         return optionValue;
     }
-
-    @Override
-    public String toString() {
-        return "Backtrack{" +
-                "sudokuBoard=" + sudokuBoard +
-                ", positionDto=" + positionDto +
-                ", optionValue=" + optionValue +
-                '}';
-    }
 }

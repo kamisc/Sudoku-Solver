@@ -44,7 +44,6 @@ public class SudokuBoardTestSuite {
         sudokuBoard.addElementToTheBoard(8, 4, 8);
         sudokuBoard.addElementToTheBoard(8, 7, 7);
         sudokuBoard.addElementToTheBoard(8, 8, 9);
-        //System.out.println(sudokuBoard);
     }
 
     @Test
@@ -358,7 +357,7 @@ public class SudokuBoardTestSuite {
     }
 
     @Test
-    public void testAddElementIfIsTheOnlyOneInPossibleValue() {
+    public void testAddElementIfIsTheOnlyOneInPossibleValue() throws UnsolvableException {
         // Given
 
         // When
@@ -383,7 +382,7 @@ public class SudokuBoardTestSuite {
     }
 
     @Test
-    public void testDeepCopy() throws CloneNotSupportedException {
+    public void testDeepCopy() {
         // Given
         sudokuBoard.removeValueFromPossibleValues();
         SudokuBoard deepClonedSudokuBoard = null;
@@ -401,7 +400,7 @@ public class SudokuBoardTestSuite {
     }
 
     @Test
-    public void testDeepCopyGetElement() throws CloneNotSupportedException {
+    public void testDeepCopyGetElement() {
         // Given
         sudokuBoard.removeValueFromPossibleValues();
         SudokuBoard deepClonedSudokuBoard = null;
@@ -423,7 +422,7 @@ public class SudokuBoardTestSuite {
     }
 
     @Test
-    public void testDeepCopyGetPossibleValues() throws CloneNotSupportedException {
+    public void testDeepCopyGetPossibleValues() {
         // Given
         sudokuBoard.removeValueFromPossibleValues();
         SudokuBoard deepClonedSudokuBoard = null;

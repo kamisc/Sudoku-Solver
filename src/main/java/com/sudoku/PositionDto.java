@@ -28,9 +28,4 @@ public class PositionDto {
     public void setEmptyColumn(int emptyColumn) {
         this.emptyColumn = emptyColumn;
     }
-
-    @Override
-    public String toString() {
-        return "row :" + emptyRow + " : col: " + emptyColumn;
-    }
 }
