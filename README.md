@@ -13,5 +13,5 @@ You can even resolve empty board. :smile: Try it!
 **_Instalation_**
 ```
 1. Download latest version from releases: https://github.com/kamisc/Sudoku-Solver/releases
-2. Run command line and run game by command: java -jar rspls.jar
+2. Run command line and run game by command: java -jar sudoku-solver.jar
 ```
