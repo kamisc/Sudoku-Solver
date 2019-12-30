@@ -8,7 +8,7 @@ You can even resolve empty board. :smile: Try it!
 
 **_Author: Kamil Seweryn_**
 
-![sudoku](https://raw.githubusercontent.com/kamisc/Sudoku-Solver/src/main/resources/sudoku.jpg)
+![sudoku](https://raw.githubusercontent.com/kamisc/Sudoku-Solver/master/src/main/resources/sudoku.jpg)
 
 **_Instalation_**
 ```
